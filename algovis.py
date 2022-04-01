@@ -25,9 +25,12 @@ class Scene:
                 s = control.on_mouse_event(event, pygame.mouse.get_pos(), pygame.mouse.get_pressed())
                 if not s is None: newScene = s
         return newScene
+    def on_animate(self, elapsed):
+        for control in self.controls:
+            control.on_animate(elapsed)
 class MainScene(Scene):
     def __init__(self, font):
-        controls = [Button("Info", (200, 200), font, self.infoClick, bg="gray", hoverbg="red"),
+        controls = [Button("Information", (200, 200), font, self.infoClick, bg="gray", hoverbg="red"), #"ℹ"
                     Button("Insert Sort", (200, 250), font, self.insertSortClick, bg="gray", hoverbg="red")]
         super().__init__(controls)
     def infoClick(self): return InfoScene
@@ -78,10 +81,11 @@ class SortControl:
     def __init__(self, data, pos, fg="white", bg="black"):
         self.x, self.y = pos; self.data = data
         self.fg, self.bg = pygame.Color(fg), pygame.Color(bg)
-        self.isDrawn = False
         self.currentItem = 0
-        self.redraw(self.data[self.currentItem][0])
+        self.animState = 0
+        self.redraw(self.data[0][0])
     def redraw(self, l):
+        self.isDrawn = False
         self.rects = []
         for i, val in enumerate(l):
             self.rects.append(pygame.Rect(self.x + 10*i, self.y, 10, val*10))
@@ -93,12 +97,13 @@ class SortControl:
             pygame.draw.rect(screen, self.bg, [rect[0], rect[1]+rect[3], rect[2], self.rect.height])
             pygame.draw.rect(screen, self.fg, rect)
         return [self.rect]
-    def on_mouse_event(self, event, pos, pressed):
-        if event.type == pygame.MOUSEBUTTONDOWN:
-            if self.currentItem == len(self.data)-1: return
-            self.currentItem += 1
-            self.redraw(self.data[self.currentItem][0])
-            self.isDrawn = False
+    def on_mouse_event(self, event, pos, pressed): pass
+    def on_animate(self, elapsed):
+        self.animState += elapsed * self.state.speed
+        if self.animState < 0: self.animState = 0
+        if self.animState > len(self.data) * 500 - 1: self.animState = len(self.data) * 500 - 1
+        currentItem = int(self.animState / 500)
+        self.redraw(self.data[currentItem][0])
 class InsertSortScene(Scene):
     def __init__(self, font):
         #print(InsertSortScene.insert_sort([3, 10, 2, 9, 1, 0, 2, 4, 8, 9, 10, 2, 4, 6]))
@@ -106,6 +111,7 @@ class InsertSortScene(Scene):
                     BackButton((960, 10), MainScene),
                     MediaControlPanel((400, 660)),
                     SortControl(InsertSortScene.meta_insert_sort([3, 10, 2, 9, 1, 0, 2, 4, 8, 9, 10, 2, 4, 6]), (100, 100))]
+        controls[3].state = controls[2].state
         super().__init__(controls)
     def insert_sort(l):
         for i in range(1, len(l)):
@@ -129,9 +135,9 @@ class LatexLabel:
     def __init__(self, ltx, pos, font, fg="red", bg="white"):
         self.x, self.y = pos; self.ltx = ltx
         self.fg, self.bg, self.font = fg, bg, font
-        self.isDrawn = False
         self.redraw()
     def redraw(self):
+        self.isDrawn = False
         self.surf = LatexLabel.latexToPyGameSurface(self.ltx, self.fg, self.bg)
         self.rect = pygame.Rect(self.x, self.y, self.surf.get_width(), self.surf.get_height())
     def show(self, screen):
@@ -140,6 +146,7 @@ class LatexLabel:
         screen.blit(self.surf, (self.x, self.y))
         return [self.rect]
     def on_mouse_event(self, event, pos, pressed): pass
+    def on_animate(self, elapsed): pass
     def latexToPyGameSurface(ltx, color="red", bgcolor="white"):
         import matplotlib
         #matplotlib.use("Agg")
@@ -167,9 +174,9 @@ class Label:
     def __init__(self, strs, pos, font, fg="white", bg="black"):
         self.x, self.y = pos; self.strs = strs
         self.fg, self.bg, self.font = pygame.Color(fg), pygame.Color(bg), font
-        self.isDrawn = False
         self.redraw()
     def redraw(self):
+        self.isDrawn = False
         self.surf = []
         self.tops = []; curheight = 0; curwidth = 0
         for s in self.strs:
@@ -185,14 +192,16 @@ class Label:
             screen.blit(surf, (self.x, self.y+self.tops[i]))
         return [self.rect]
     def on_mouse_event(self, event, pos, pressed): pass
+    def on_animate(self, elapsed): pass
 class Button:
     def __init__(self, text, pos, font, click, fg="white", bg="black", hoverbg="gray"):
         self.x, self.y = pos; self.text = text
         self.fg, self.bg, self.hoverbg, self.font = pygame.Color(fg), pygame.Color(bg), pygame.Color(hoverbg), font
-        self.isDrawn, self.isDown, self.isHover = False, False, False
+        self.isDown, self.isHover = False, False
         self.click = click
         self.redraw(self.bg)
     def redraw(self, bg):
+        self.isDrawn = False
         self.textsurf = self.font.render(self.text, 1, self.fg, bg)
         self.size = self.textsurf.get_size()
         lwidth, hlight = 2, 40
@@ -214,7 +223,7 @@ class Button:
         if event.type == pygame.MOUSEMOTION:
             x, y = pos
             if self.rect.collidepoint(x, y) ^ (not self.isHover): return
-            self.isHover, self.isDrawn = not self.isHover, False
+            self.isHover = not self.isHover
             self.redraw(self.hoverbg if self.isHover else self.bg)
         elif event.type == pygame.MOUSEBUTTONDOWN:
             if pressed[0]:
@@ -226,6 +235,7 @@ class Button:
                 x, y = pos
                 if self.rect.collidepoint(x, y): return self.click()
         return None
+    def on_animate(self, elapsed): pass
     def click(self): return None
 class BackButton(Button):
     def __init__(self, pos, cls):
@@ -233,6 +243,9 @@ class BackButton(Button):
         font = pygame.font.SysFont("Segoe UI Symbol", 30)
         super().__init__("←", pos, font, self.click)
     def click(self): return self.cls
+class AnimationState:
+    def __init__(self):
+        self.speed = 0
 class MediaControlPanel:
     def __init__(self, pos, fg="white", bg="black", hoverbg="gray"):
         font = pygame.font.SysFont("Segoe UI Symbol", 30)
@@ -240,15 +253,20 @@ class MediaControlPanel:
         x, y = pos
         fastBackward = Button("⏪", (x, y), font, self.fastBackwardClick, bg="gray", hoverbg="blue")
         x += fastBackward.size[0]
-        backButton = Button("◀", (x, y), font, self.backButtonClick, bg="gray", hoverbg="blue")
+        stepBackButton = Button("⎹◀", (x, y), font, self.stepBackButtonClick, bg="gray", hoverbg="blue")
+        x += stepBackButton.size[0]
+        backButton = Button("⏴", (x, y), font, self.backButtonClick, bg="gray", hoverbg="blue")
         x += backButton.size[0]
-        playButton = Button("▶", (x, y), font, self.playButtonClick, bg="gray", hoverbg="blue")
-        x += playButton.size[0]
         stopButton = Button("⏹", (x, y), font, self.stopButtonClick, bg="gray", hoverbg="blue")
         x += stopButton.size[0]
+        playButton = Button("⏵", (x, y), font, self.playButtonClick, bg="gray", hoverbg="blue")
+        x += playButton.size[0]
+        stepForwardButton = Button("▶⎸", (x, y), font, self.stepForwardButtonClick, bg="gray", hoverbg="blue")
+        x += stepForwardButton.size[0]
         fastForward = Button("⏩", (x, y), font, self.fastForwardClick, bg="gray", hoverbg="blue")
-        self.buttons = [fastBackward, backButton, playButton, stopButton, fastForward]
+        self.buttons = [fastBackward, stepBackButton, backButton, stopButton, playButton, stepForwardButton, fastForward]
         self.rect = pygame.Rect(pos[0], y, sum(b.size[0] for b in self.buttons), max(b.size[1] for b in self.buttons))
+        self.state = AnimationState()
     def show(self, screen):
         rects = []
         for button in self.buttons:
@@ -257,11 +275,26 @@ class MediaControlPanel:
     def on_mouse_event(self, event, pos, pressed):
         for button in self.buttons:
             button.on_mouse_event(event, pygame.mouse.get_pos(), pygame.mouse.get_pressed())
-    def fastBackwardClick(self): return None
-    def backButtonClick(self): return None
-    def playButtonClick(self): return None
-    def stopButtonClick(self): return None
-    def fastForwardClick(self): return None
+    def on_animate(self, elapsed): pass
+    def fastBackwardClick(self):
+        self.state.speed = -5
+    def backButtonClick(self):
+        self.state.speed = -1
+    def playButtonClick(self):
+        if self.state.speed == 1:
+            self.buttons[2].text = "⏵"
+            self.state.speed = 0
+        else:
+            self.buttons[2].text = "⏸"
+            self.state.speed = 1
+        self.buttons[2].redraw(self.buttons[2].bg)
+    def stopButtonClick(self):
+        self.state.speed = 0
+    def fastForwardClick(self):
+        self.state.speed = 5
+    def stepBackButtonClick(self): pass
+    def stepForwardButtonClick(self): pass
+    def doReset(self): return None
 def main():
     pygame.init()
     #logo = pygame.image.load("logo32x32.png")
@@ -273,21 +306,24 @@ def main():
     running = True
     scene.show(screen)
     pygame.display.update()
+    elapsed = 0
     while running:
         #left, middle, right = pygame.mouse.get_pressed()
         #pygame.mouse.get_pos()
-        rects = []
+        rects, sceneChange = [], False
         for event in pygame.event.get():
             if event.type == pygame.QUIT: running = False; break
             newScene = scene.on_event(event)
             if not newScene is None:
                 rects.extend(scene.undraw(screen))
                 scene = newScene(textFont)
-                rects.extend(scene.show(screen))
-            else: rects.extend(scene.show(screen))
-        if len(rects) != 0: pygame.display.update(rects)
+                sceneChange = True
+        if elapsed != 0:
+            if not sceneChange: scene.on_animate(elapsed)
+            rects.extend(scene.show(screen))
+        if len(rects) != 0: pygame.display.update(rects)        
         #pygame.display.update()
-        clock.tick(FPS) #FPS is Hz, 1/FPS=sleep time in seconds
+        elapsed = clock.tick(FPS) #FPS is Hz, 1/FPS=sleep time in seconds
     pygame.quit()
 
 if __name__ == '__main__': main()
