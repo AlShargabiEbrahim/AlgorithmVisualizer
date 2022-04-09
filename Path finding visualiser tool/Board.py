@@ -30,3 +30,18 @@ def draw_grid_lines(screen):
         for j in range(columns):
             pygame.draw.line(screen, colors["GREY"], (j * node_width, 0), (j * node_width, width))  # vertical
 
+
+def draw(grid, screen):
+    for event in pygame.event.get():
+        if pygame.QUIT == event.type:
+            pygame.quit()
+            sys.exit()
+        else:
+            screen.fill(colors["WHITE"])
+    for row in grid:
+        for node in row:
+            pygame.draw.rect(screen, node.color, (node.x, node.y, node_width, node_width))
+
+    draw_grid_lines(screen)
+    pygame.display.update()
+
