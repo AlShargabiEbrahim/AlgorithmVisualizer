@@ -1,7 +1,7 @@
 import pygame
 WIDTH, HEIGHT = 1024, 768
 FPS = 60
-import os
+#import os
 def rgb_hlight(clr, hlight):
     return (max(min(clr[0]+hlight, 255), 0), max(min(clr[1]+hlight, 255), 0), max(min(clr[2]+hlight, 255), 0))
 class Scene:
