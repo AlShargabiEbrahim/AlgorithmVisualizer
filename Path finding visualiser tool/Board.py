@@ -23,3 +23,10 @@ def create_grid_of_nodes():
 
     return nodes_grid
 
+
+def draw_grid_lines(screen):
+    for i in range(rows):
+        pygame.draw.line(screen, colors["GREY"], (0, i*node_width), (width, i*node_width)) # horizontal
+        for j in range(columns):
+            pygame.draw.line(screen, colors["GREY"], (j * node_width, 0), (j * node_width, width))  # vertical
+
