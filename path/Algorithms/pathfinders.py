@@ -122,5 +122,40 @@ def finders_main(num):
                             if len(barriers) >= rows ** 2 * 0.3:
                                 break
 
+                if event.key == pygame.K_v and start_node and end_node and not algo_finished:
+                    """recursive division maze vertical"""
+                    row_s, col_s = start_node.get_pos()
+                    row_e, col_e = end_node.get_pos()
+
+                    for row in range(1, rows - 1):
+
+                        col2 = random.randint(1, columns - 2)
+                        while (col2 == col_s and row_s == row) or (col2 == col_e and row_e == row) :
+                            col2 = random.randint(1, columns - 2)
+                        n = nodes_grid[row][col2]
+                        n.set_color("WHITE")
+
+                        col3 = random.randint(1, columns - 2)
+                        while (col3 == col_s and row_s == row) or (col3 == col_e and row_e == row) or (col3 == col2):
+                            col3 = random.randint(1, columns - 2)
+                        n = nodes_grid[row][col3]
+                        n.set_color("WHITE")
+
+                        for column in range(1, columns - 1):
+                            n = Node(row, column, node_width)
+
+                            if row_s == row and col_s == column:
+                                continue
+                            elif row_e == row and col_e == column:
+                                continue
+
+                            else:
+                                if row % 2 == 1:
+
+                                    if not (row_s == row and col_s == column) and not (
+                                            row_e == row and col_e == column) and not (column == col2) and not (column == col3):
+                                        n = nodes_grid[row][column]
+                                        n.set_color("BLACK")
+
                 
     pygame.quit()
