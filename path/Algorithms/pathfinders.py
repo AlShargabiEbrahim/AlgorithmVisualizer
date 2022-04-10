@@ -96,6 +96,7 @@ def finders_main(num):
                         a_star_algo(nodes_grid, start_node, end_node, screen)
                     elif num == 3:
                         a_star_algo(nodes_grid, start_node, end_node, screen) #
+
                     algo_finished = True
 
     pygame.quit()
