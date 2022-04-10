@@ -13,15 +13,15 @@ class MenuButton:
 		"""Putting the button on the screen"""
 		screen.blit(self.text, self.text_rect)
 
-	def checkMouseClick(self, position):
+	def checkMouseClick(self, mousePositionX, mousePositionY):
 		"""Check the mouse position , if it is within the area of the button or not"""
-		if position[0] in range(self.text_rect.left, self.text_rect.right) and position[1] in range(self.text_rect.top, self.text_rect.bottom):
+		if mousePositionX in range(self.text_rect.left, self.text_rect.right) and mousePositionY in range(self.text_rect.top, self.text_rect.bottom):
 			return True
 		return False
 
-	def changeColor(self, position):
+	def changeColor(self, mousePositionX, mousePositionY):
 		"""Changing the color of the button, if the mouse is hovering over the button"""
-		if position[0] in range(self.text_rect.left, self.text_rect.right) and position[1] in range(self.text_rect.top, self.text_rect.bottom):
+		if mousePositionX in range(self.text_rect.left, self.text_rect.right) and mousePositionY in range(self.text_rect.top, self.text_rect.bottom):
 			self.text = self.font.render(self.text_input, True, self.hovering_color)
 		else:
 			self.text = self.font.render(self.text_input, True, self.base_color)

@@ -63,7 +63,10 @@ def a_star_algo(nodes_grid, start_node, end_node, screen):
         draw(nodes_grid, screen)
 
         if current_node != start_node:
+            #for _ in range(10000):
+            #    print("")
+            #time.sleep(0.05) # slow
+            #time.sleep(0.015)  # avg
             clock.tick(delay)
             current_node.set_color("BLUE")
-
     return False

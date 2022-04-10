@@ -1,7 +1,7 @@
 from .Colors import colors
 
-TOTAL_NUM_OF_ROWS = 30
-TOTAL_NUM_OF_COLUMNS = 30
+TOTAL_NUM_OF_ROWS = 40
+TOTAL_NUM_OF_COLUMNS = 40
 
 
 class Node:

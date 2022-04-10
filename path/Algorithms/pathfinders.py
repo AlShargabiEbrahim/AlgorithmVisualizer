@@ -40,13 +40,11 @@ def finders_main(num):
                 if row == 0 or row == rows - 1 or col == 0 or col == columns - 1:
                     new_node.set_color("BLACK")
                 elif new_node != end_node and not start_node:
-                    """CHECK plz"""
                     """First node to be drawn"""
                     new_node.set_color("TEAL")
                     start_node = new_node
 
                 elif new_node != start_node and not end_node:
-                    """CHECK plz"""
                     """Second node to be drawn"""
                     new_node.set_color("PURPLE")
                     end_node = new_node
@@ -77,13 +75,12 @@ def finders_main(num):
                 if num == 1:
                     a_star_algo(nodes_grid, start_node, end_node, screen)
                 elif num == 2:
-                    a_star_algo(nodes_grid, start_node, end_node, screen) #
+                    a_star_algo(nodes_grid, start_node, end_node, screen)
                 elif num == 3:
-                    a_star_algo(nodes_grid, start_node, end_node, screen)#
+                    a_star_algo(nodes_grid, start_node, end_node, screen)
                 algo_finished = True
 
             if pygame.KEYDOWN == event.type:
-                #menu = MainMenu(screen)
                 if event.key == pygame.K_SPACE and start_node and end_node and not algo_finished:
                     """Space click to start the algo """
                     for row in nodes_grid:
@@ -91,11 +88,11 @@ def finders_main(num):
                             node.update_neighbors(nodes_grid)
 
                     if num == 1:
-                        a_star_algo(nodes_grid, start_node, end_node, screen) #
+                        a_star_algo(nodes_grid, start_node, end_node, screen)
                     elif num == 2:
                         a_star_algo(nodes_grid, start_node, end_node, screen)
                     elif num == 3:
-                        a_star_algo(nodes_grid, start_node, end_node, screen) #
+                        a_star_algo(nodes_grid, start_node, end_node, screen)
                     algo_finished = True
 
                 if event.key == pygame.K_r:
