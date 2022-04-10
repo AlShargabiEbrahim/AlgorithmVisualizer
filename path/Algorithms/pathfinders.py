@@ -4,7 +4,7 @@ from .A_star import *
 import random
 
 
-def finders_main(num):
+def finders_main(num, delay_num):
     pygame.init()
     screen = pygame.display.set_mode((width, width))
 
@@ -15,7 +15,7 @@ def finders_main(num):
     elif num == 3:
         pygame.display.set_caption('Dijkstra  Path Finding Visualizer')
 
-    nodes_grid = create_grid_of_nodes()
+    nodes_grid = create_grid_of_nodes(delay_num)
     still_running = True
     algo_started = False
     algo_finished = False
@@ -73,11 +73,11 @@ def finders_main(num):
                     for node in row:
                         node.update_neighbors_nodes(nodes_grid)
                 if num == 1:
-                    a_star_algo(nodes_grid, start_node, end_node, screen)
+                    a_star_algo(nodes_grid, start_node, end_node, screen,delay_num)
                 elif num == 2:
-                    a_star_algo(nodes_grid, start_node, end_node, screen)
+                    a_star_algo(nodes_grid, start_node, end_node, screen,delay_num)
                 elif num == 3:
-                    a_star_algo(nodes_grid, start_node, end_node, screen)
+                    a_star_algo(nodes_grid, start_node, end_node, screen,delay_num)
                 algo_finished = True
 
             if pygame.KEYDOWN == event.type:
@@ -88,18 +88,18 @@ def finders_main(num):
                             node.update_neighbors(nodes_grid)
 
                     if num == 1:
-                        a_star_algo(nodes_grid, start_node, end_node, screen)
+                        a_star_algo(nodes_grid, start_node, end_node, screen, delay_num)
                     elif num == 2:
-                        a_star_algo(nodes_grid, start_node, end_node, screen)
+                        a_star_algo(nodes_grid, start_node, end_node, screen, delay_num)
                     elif num == 3:
-                        a_star_algo(nodes_grid, start_node, end_node, screen)
+                        a_star_algo(nodes_grid, start_node, end_node, screen, delay_num)
                     algo_finished = True
 
                 if event.key == pygame.K_r:
                     """R click to restart"""
                     start_node = None
                     end_node = None
-                    nodes_grid = create_grid_of_nodes()
+                    nodes_grid = create_grid_of_nodes(delay_num)
                     algo_finished = False
 
                 if event.key == pygame.K_m and start_node and end_node and not algo_finished:

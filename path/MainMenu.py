@@ -1,35 +1,14 @@
-import pygame
-
-from Menubutton import MenuButton
 from Algorithms.pathfinders import *
+from Buttons import *
 
 
-def get_font(size):  # Returns Press-Start-2P in the desired size
-    return pygame.font.Font("assets/font.ttf", size)
-
-
-pygame.init()
-screen = pygame.display.set_mode((1280, 720))
 algo_num = 0
+delay = 0
 cnt = 0
 pygame.display.set_caption("Menu")
-BG = pygame.image.load("assets/Background.png")
 screen.blit(BG, (0, 0))
 text = get_font(60).render("Pathfinder Visualizer", True, "#b68f40")
 rect = text.get_rect(center=(640, 100))
-instructionsButton = MenuButton(640, 250, text_input="Instructions", font=get_font(75))
-OptionsButton = MenuButton(640, 400, text_input="Options", font=get_font(75))
-QuitButton = MenuButton(640, 550, text_input="QUIT", font=get_font(75))
-bfsButton = MenuButton(640, 250, text_input="BFS", font=get_font(75))
-aStarButton = MenuButton(640, 370, text_input="A Star", font=get_font(75))
-DijkstraButton = MenuButton(640, 490, text_input="Dijkstra", font=get_font(75))
-bfsButton = MenuButton(640, 250, text_input="BFS", font=get_font(75))
-aStarButton = MenuButton(640, 370, text_input="A Star", font=get_font(75))
-DijkstraButton = MenuButton(640, 490, text_input="Dijkstra", font=get_font(75))
-BackButton = MenuButton(640, 610, text_input="Back", font=get_font(75))
-slowButton = MenuButton(640, 250, text_input="Slow", font=get_font(75))
-averageButton = MenuButton(640, 370, text_input="Average", font=get_font(75))
-fastButton = MenuButton(640, 490, text_input="Fast", font=get_font(75))
 
 
 def main_menu():
@@ -116,7 +95,8 @@ def algosOptions():
 
 
 def delayOptions():
-    while True:
+    running_menu = True
+    while running_menu:
         BG = pygame.image.load("assets/Background.png")
         screen.blit(BG, (0, 0))
         text = get_font(60).render("Speed of the Algorithm", True, "#b68f40")
@@ -136,14 +116,27 @@ def delayOptions():
                 pygame.quit()
                 sys.exit()
             if event.type == pygame.MOUSEBUTTONDOWN:
+                global delay
 
                 if BackButton.checkMouseClick(mousePositionX, mousePositionY):
                     BG = pygame.image.load("assets/Background.png")
                     screen.blit(BG, (0, 0))
                     text = get_font(55).render("Pathfinding Algorithms", True, "#b68f40")
                     rect = text.get_rect(center=(640, 100))
+                    algosOptions()
 
-                else:
-                    
-                    finders_main(algo_num)
-                    sys.exit()
+                if slowButton.checkMouseClick(mousePositionX, mousePositionY):
+                    delay = 5
+                    running_menu = False
+                    finders_main(algo_num, delay)
+
+                if averageButton.checkMouseClick(mousePositionX, mousePositionY):
+                    delay = 15
+                    running_menu = False
+                    finders_main(algo_num, delay)
+
+                if fastButton.checkMouseClick(mousePositionX, mousePositionY):
+                    delay = 30
+                    running_menu = False
+                    finders_main(algo_num, delay)
+                sys.exit()

@@ -8,10 +8,12 @@ width = 600
 rows, columns = 40, 40
 node_width = width // rows
 clock = pygame.time.Clock()
-delay = 10 #IMP LATER
+delay = 0
 
 
-def create_grid_of_nodes():
+def create_grid_of_nodes(num):
+    global delay
+    delay = num
     nodes_grid = []
     for row in range(rows):
         nodes_grid.append([])
@@ -38,6 +40,7 @@ def draw(grid, screen):
             sys.exit()
         else:
             screen.fill(colors["WHITE"])
+
     for row in grid:
         for node in row:
             pygame.draw.rect(screen, node.color, (node.x, node.y, node_width, node_width))

@@ -3,7 +3,7 @@ from path.Board import *
 import math
 
 
-def a_star_algo(nodes_grid, start_node, end_node, screen):
+def a_star_algo(nodes_grid, start_node, end_node, screen, delay):
     cnt = 0
     pq = PriorityQueue()
     pq.put((0, cnt, start_node))
@@ -63,10 +63,6 @@ def a_star_algo(nodes_grid, start_node, end_node, screen):
         draw(nodes_grid, screen)
 
         if current_node != start_node:
-            #for _ in range(10000):
-            #    print("")
-            #time.sleep(0.05) # slow
-            #time.sleep(0.015)  # avg
             clock.tick(delay)
             current_node.set_color("BLUE")
     return False
