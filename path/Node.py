@@ -1,5 +1,6 @@
 from .Colors import colors
 
+
 TOTAL_NUM_OF_ROWS = 40
 TOTAL_NUM_OF_COLUMNS = 40
 

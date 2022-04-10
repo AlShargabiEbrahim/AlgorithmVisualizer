@@ -99,7 +99,7 @@ def delayOptions():
     while running_menu:
         BG = pygame.image.load("assets/Background.png")
         screen.blit(BG, (0, 0))
-        text = get_font(60).render("Speed of the Algorithm", True, "#b68f40")
+        text = get_font(55).render("Speed of the Algorithm", True, "#b68f40")
         rect = text.get_rect(center=(640, 100))
 
         mousePositionX = pygame.mouse.get_pos()[0]
@@ -119,24 +119,17 @@ def delayOptions():
                 global delay
 
                 if BackButton.checkMouseClick(mousePositionX, mousePositionY):
-                    BG = pygame.image.load("assets/Background.png")
-                    screen.blit(BG, (0, 0))
-                    text = get_font(55).render("Pathfinding Algorithms", True, "#b68f40")
-                    rect = text.get_rect(center=(640, 100))
                     algosOptions()
 
                 if slowButton.checkMouseClick(mousePositionX, mousePositionY):
                     delay = 5
-                    running_menu = False
                     finders_main(algo_num, delay)
 
                 if averageButton.checkMouseClick(mousePositionX, mousePositionY):
                     delay = 15
-                    running_menu = False
                     finders_main(algo_num, delay)
 
                 if fastButton.checkMouseClick(mousePositionX, mousePositionY):
                     delay = 30
-                    running_menu = False
                     finders_main(algo_num, delay)
                 sys.exit()
