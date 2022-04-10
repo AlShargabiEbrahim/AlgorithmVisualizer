@@ -96,7 +96,31 @@ def finders_main(num):
                         a_star_algo(nodes_grid, start_node, end_node, screen)
                     elif num == 3:
                         a_star_algo(nodes_grid, start_node, end_node, screen) #
-
                     algo_finished = True
 
+                if event.key == pygame.K_r:
+                    """R click to restart"""
+                    start_node = None
+                    end_node = None
+                    nodes_grid = create_grid_of_nodes()
+                    algo_finished = False
+
+                if event.key == pygame.K_m and start_node and end_node and not algo_finished:
+                    """M click to gen Basic random maze"""
+                    barriers = []
+                    for _ in range(1, rows - 1):
+                        for _ in range(1, rows - 1):
+                            row, col = random.randint(1, rows - 2), random.randint(1, rows - 2)
+                            n = nodes_grid[row][col]
+                            while n in barriers or n == start_node or n == end_node:
+                                row, col = random.randint(1, rows - 2), random.randint(1, rows - 2)
+                                n = nodes_grid[row][col]
+
+                            n.set_color("BLACK")
+                            barriers.append(n)
+
+                            if len(barriers) >= rows ** 2 * 0.3:
+                                break
+
+                
     pygame.quit()
