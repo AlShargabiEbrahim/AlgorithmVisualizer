@@ -11,7 +11,6 @@ clock = pygame.time.Clock()
 delay = 10 #IMP LATER
 
 
-
 def create_grid_of_nodes():
     nodes_grid = []
     for row in range(rows):
