@@ -144,5 +144,6 @@ def delayOptions():
                     rect = text.get_rect(center=(640, 100))
 
                 else:
+                    
                     finders_main(algo_num)
                     sys.exit()
