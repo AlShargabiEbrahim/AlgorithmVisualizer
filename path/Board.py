@@ -49,10 +49,6 @@ def draw(grid, screen):
 def draw_shorties_path(parent_nodes, current, grid, screen):
     cnt = 0
     while current in parent_nodes:
-        #for _ in range(10000):
-        #    print("")
-        #time.sleep(0.05) # slow
-        #time.sleep(0.015)  # avg
         clock.tick(delay)
         current = parent_nodes[current]
         current.set_color("YELLOW")
