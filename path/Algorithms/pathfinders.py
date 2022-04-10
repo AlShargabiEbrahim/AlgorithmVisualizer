@@ -157,5 +157,44 @@ def finders_main(num):
                                         n = nodes_grid[row][column]
                                         n.set_color("BLACK")
 
-                
+                if event.key == pygame.K_h and start_node and end_node and not algo_finished:
+                    """recursive division maze horizontal"""
+
+                    row_s, col_s = start_node.get_pos()
+                    row_e, col_e = end_node.get_pos()
+
+                    for column in range(1, columns - 1):
+
+                        white_node = random.randint(1, 3)
+                        for _ in range(white_node):
+                            row2 = random.randint(1, rows - 2)
+                            while (column == col_s and row_s == row2) or (column == col_e and row_e == row2):
+                                row2 = random.randint(1, rows - 2)
+                            n = nodes_grid[row2][column]
+                            n.set_color("WHITE")
+
+                        row3 = random.randint(1, rows - 2)
+                        while (column == col_s and row_s == row3) or (column == col_e and row_e == row3):
+                            row3 = random.randint(1, rows - 2)
+                        n = nodes_grid[row3][column]
+                        n.set_color("WHITE")
+
+                        for row in range(1, rows - 1):
+
+                            n = Node(row, column, node_width)
+
+                            if row_s == row and col_s == column:
+                                continue
+                            elif row_e == row and col_e == column:
+                                continue
+
+                            else:
+                                if column % 2 == 1:
+
+                                    if not (row_s == row and col_s == column) and not (
+                                            row_e == row and col_e == column) and not (row == row2) and not (
+                                            row == row3):
+                                        n = nodes_grid[row][column]
+                                        n.set_color("BLACK")
+
     pygame.quit()
