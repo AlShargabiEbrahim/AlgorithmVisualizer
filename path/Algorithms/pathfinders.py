@@ -2,6 +2,7 @@
 from .A_star import *
 #from .Bfs import *
 import random
+from .Dijkstra import dijkstra_algo
 
 
 def finders_main(num, delay_num):
@@ -77,7 +78,7 @@ def finders_main(num, delay_num):
                 elif num == 2:
                     a_star_algo(nodes_grid, start_node, end_node, screen,delay_num)
                 elif num == 3:
-                    a_star_algo(nodes_grid, start_node, end_node, screen,delay_num)
+                    dijkstra_algo(nodes_grid, start_node, end_node, screen,delay_num)
                 algo_finished = True
 
             if pygame.KEYDOWN == event.type:

@@ -9,6 +9,7 @@ pygame.display.set_caption("Menu")
 screen.blit(BG, (0, 0))
 text = get_font(60).render("Pathfinder Visualizer", True, "#b68f40")
 rect = text.get_rect(center=(640, 100))
+temp = 0
 
 
 def main_menu():
@@ -31,8 +32,10 @@ def main_menu():
                 sys.exit()
             if event.type == pygame.MOUSEBUTTONDOWN:
                 if instructionsButton.checkMouseClick(mousePositionX, mousePositionY):
-                    """"""
-                    #finders_main(algo_num)
+
+                    global temp
+                    temp = 1
+                    instructions()
                     running_menu = False
 
                 if OptionsButton.checkMouseClick(mousePositionX, mousePositionY):
@@ -44,12 +47,47 @@ def main_menu():
                     sys.exit()
 
 
-def algosOptions():
+def instructions():
     running_menu = True
 
     while running_menu:
 
-        BG = pygame.image.load("assets/Background.png")
+        BG = pygame.image.load("assets/menuback.jpg")
+        screen.blit(BG, (0, 0))
+        text = get_font(55).render("Instructions", True, "#b68f40")
+        rect = text.get_rect(center=(640, 100))
+        mousePositionX = pygame.mouse.get_pos()[0]
+        mousePositionY = pygame.mouse.get_pos()[1]
+        screen.blit(text, rect)
+
+        for button in [contButton2, contButton3,contButton32,contButton22, contButton4 , contButton42, contButton5, contButton6, contButton62,contButton63]:
+            button.update(screen)
+
+        contButton.changeColor(mousePositionX, mousePositionY)
+        contButton.update(screen)
+
+        pygame.display.update()
+        pygame.display.update()
+
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                pygame.quit()
+                sys.exit()
+            if event.type == pygame.MOUSEBUTTONDOWN:
+
+                if contButton.checkMouseClick(mousePositionX, mousePositionY):
+                    if temp == 1:
+                        algosOptions()
+                        running_menu = False
+                    else:
+                        finders_main(algo_num, delay)
+                sys.exit()
+
+def algosOptions():
+    running_menu = True
+    while running_menu:
+
+        BG = pygame.image.load("assets/menuback.jpg")
         screen.blit(BG, (0, 0))
         text = get_font(55).render("Pathfinding Algorithms", True, "#b68f40")
         rect = text.get_rect(center=(640, 100))
@@ -86,7 +124,7 @@ def algosOptions():
                     delayOptions()
 
                 if BackButton.checkMouseClick(mousePositionX, mousePositionY):
-                    BG = pygame.image.load("assets/Background.png")
+                    BG = pygame.image.load("assets/menuback.jpg")
                     screen.blit(BG, (0, 0))
                     text = get_font(60).render("Pathfinder Visualizer", True, "#b68f40")
                     rect = text.get_rect(center=(640, 100))
@@ -97,7 +135,7 @@ def algosOptions():
 def delayOptions():
     running_menu = True
     while running_menu:
-        BG = pygame.image.load("assets/Background.png")
+        BG = pygame.image.load("assets/menuback.jpg")
         screen.blit(BG, (0, 0))
         text = get_font(55).render("Speed of the Algorithm", True, "#b68f40")
         rect = text.get_rect(center=(640, 100))
@@ -123,13 +161,22 @@ def delayOptions():
 
                 if slowButton.checkMouseClick(mousePositionX, mousePositionY):
                     delay = 5
-                    finders_main(algo_num, delay)
+                    if temp == 0:
+                        instructions()
+                    else:
+                        finders_main(algo_num, delay)
 
                 if averageButton.checkMouseClick(mousePositionX, mousePositionY):
                     delay = 15
-                    finders_main(algo_num, delay)
+                    if temp == 0:
+                        instructions()
+                    else:
+                        finders_main(algo_num, delay)
 
                 if fastButton.checkMouseClick(mousePositionX, mousePositionY):
                     delay = 30
-                    finders_main(algo_num, delay)
+                    if temp == 0:
+                        instructions()
+                    else:
+                        finders_main(algo_num, delay)
                 sys.exit()
