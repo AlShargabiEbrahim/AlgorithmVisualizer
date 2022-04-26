@@ -5,9 +5,9 @@ from Buttons import *
 algo_num = 0
 delay = 0
 cnt = 0
-pygame.display.set_caption("Menu")
+pygame.display.set_caption("MENU")
 screen.blit(BG, (0, 0))
-text = get_font(60).render("Pathfinder Visualizer", True, "#b68f40")
+text = get_font(60).render("PATHFINDER VISUALIZER", True, "#b68f40")
 rect = text.get_rect(center=(640, 100))
 temp = 0
 
@@ -54,7 +54,7 @@ def instructions():
 
         BG = pygame.image.load("assets/menuback.jpg")
         screen.blit(BG, (0, 0))
-        text = get_font(55).render("Instructions", True, "#b68f40")
+        text = get_font(55).render("INSTRUCTIONS", True, "#b68f40")
         rect = text.get_rect(center=(640, 100))
         mousePositionX = pygame.mouse.get_pos()[0]
         mousePositionY = pygame.mouse.get_pos()[1]
@@ -89,7 +89,7 @@ def algosOptions():
 
         BG = pygame.image.load("assets/menuback.jpg")
         screen.blit(BG, (0, 0))
-        text = get_font(55).render("Pathfinding Algorithms", True, "#b68f40")
+        text = get_font(55).render("PATHFINDING ALGORITHMS", True, "#b68f40")
         rect = text.get_rect(center=(640, 100))
 
         mousePositionX = pygame.mouse.get_pos()[0]
@@ -126,7 +126,7 @@ def algosOptions():
                 if BackButton.checkMouseClick(mousePositionX, mousePositionY):
                     BG = pygame.image.load("assets/menuback.jpg")
                     screen.blit(BG, (0, 0))
-                    text = get_font(60).render("Pathfinder Visualizer", True, "#b68f40")
+                    text = get_font(60).render("PATHFINDER VISUALIZER", True, "#b68f40")
                     rect = text.get_rect(center=(640, 100))
                     main_menu()
                     sys.exit()
@@ -137,7 +137,7 @@ def delayOptions():
     while running_menu:
         BG = pygame.image.load("assets/menuback.jpg")
         screen.blit(BG, (0, 0))
-        text = get_font(55).render("Speed of the Algorithm", True, "#b68f40")
+        text = get_font(55).render("SPEED OF THE ALGORITHM", True, "#b68f40")
         rect = text.get_rect(center=(640, 100))
 
         mousePositionX = pygame.mouse.get_pos()[0]

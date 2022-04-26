@@ -1,8 +1,15 @@
 #from .Dijkstra import *
+import sys
+
+import pygame
+
 from .A_star import *
 #from .Bfs import *
 import random
+
+from .BFS import bfs_algo
 from .Dijkstra import dijkstra_algo
+from path.MainMenu import main_menu
 
 
 def finders_main(num, delay_num):
@@ -74,7 +81,7 @@ def finders_main(num, delay_num):
                     for node in row:
                         node.update_neighbors_nodes(nodes_grid)
                 if num == 1:
-                    a_star_algo(nodes_grid, start_node, end_node, screen,delay_num)
+                    bfs_algo(nodes_grid, start_node, end_node, screen,delay_num)
                 elif num == 2:
                     a_star_algo(nodes_grid, start_node, end_node, screen,delay_num)
                 elif num == 3:
@@ -102,6 +109,16 @@ def finders_main(num, delay_num):
                     end_node = None
                     nodes_grid = create_grid_of_nodes(delay_num)
                     algo_finished = False
+
+                if event.key == pygame.K_b:
+                    """B click to go back to menu"""
+                    still_running = False
+                    algo_finished = True
+                    # pygame.quit()
+                    main_menu()
+                    pygame.quit()
+                    sys.exit()
+
 
                 if event.key == pygame.K_m and start_node and end_node and not algo_finished:
                     """M click to gen Basic random maze"""
