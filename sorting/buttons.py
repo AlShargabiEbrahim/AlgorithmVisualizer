@@ -11,6 +11,10 @@ windowSize = (w, h)
 screen = pygame.display.set_mode(windowSize)
 pygame.display.set_caption('Sorting Algorithms Visualizer')
 
+
+def get_font(size):  # Returns Press-Start-2P in the desired size
+    #return pygame.font.Font('./images/font.ttf', size)
+    return pygame.font.SysFont('./images/font.ttf', size)
 # Font
 baseFont = get_font(24)
 #
