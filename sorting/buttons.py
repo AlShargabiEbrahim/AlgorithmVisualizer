@@ -153,3 +153,56 @@ class SizeField:
                 if event.unicode.isdigit():
                     if int(self.size) + int(event.unicode) < self.max_size:
                         self.size += event.unicode
+
+
+
+def rgb_hlight(clr, hlight):
+    return (max(min(clr[0]+hlight, 255), 0), max(min(clr[1]+hlight, 255), 0), max(min(clr[2]+hlight, 255), 0))
+
+class Button:
+    def __init__(self, text, pos, font, click, fg="white", bg="black", hoverbg="gray"):
+        self.x, self.y = pos; self.text = text
+        self.fg, self.bg, self.hoverbg, self.font = pygame.Color(fg), pygame.Color(bg), pygame.Color(hoverbg), font
+        self.isDown, self.isHover = False, False
+        self.click = click
+        self.redraw(self.bg)
+
+    def redraw(self, bg):
+        self.isDrawn = False
+        self.textsurf = self.font.render(self.text, 1, self.fg, bg)
+        self.size = self.textsurf.get_size()
+        lwidth, hlight = 2, 40
+        self.size = (self.size[0]+lwidth*2, self.size[1]+lwidth*2)
+        self.surface = pygame.Surface(self.size)
+        self.surface.fill(bg)
+        pygame.draw.line(self.surface, rgb_hlight(bg, hlight), (0, 0), (0, self.size[1]), lwidth)
+        pygame.draw.line(self.surface, rgb_hlight(bg, hlight), (0, 0), (self.size[0], 0), lwidth)
+        pygame.draw.line(self.surface, rgb_hlight(bg, -hlight), (lwidth, self.size[1]-lwidth), (self.size[0], self.size[1]-lwidth), lwidth)
+        pygame.draw.line(self.surface, rgb_hlight(bg, -hlight), (self.size[0]-lwidth, lwidth), (self.size[0]-lwidth, self.size[1]), lwidth)
+        self.surface.blit(self.textsurf, (lwidth, lwidth))
+        self.rect = pygame.Rect(self.x, self.y, self.size[0], self.size[1])
+
+    def show(self, screen):
+        if self.isDrawn: return []
+        self.isDrawn = True
+        screen.blit(self.surface, (self.x, self.y))
+        return [self.rect]
+
+    def on_mouse_event(self, event, pos, pressed):
+        if event.type == pygame.MOUSEMOTION:
+            x, y = pos
+            if self.rect.collidepoint(x, y) ^ (not self.isHover): return
+            self.isHover = not self.isHover
+            self.redraw(self.hoverbg if self.isHover else self.bg)
+        elif event.type == pygame.MOUSEBUTTONDOWN:
+            if pressed[0]:
+                x, y = pos
+                if self.rect.collidepoint(x, y): self.isDown = True
+        elif event.type == pygame.MOUSEBUTTONUP and self.isDown:
+            if not pressed[0]:
+                self.isDown = False
+                x, y = pos
+                if self.rect.collidepoint(x, y): return self.click()
+        return None
+    def on_animate(self, elapsed): pass
+    def click(self): return None
