@@ -9,7 +9,7 @@ import random
 
 from .BFS import bfs_algo
 from .Dijkstra import dijkstra_algo
-from path.MainMenu import main_menu
+from pathfinder.MainMenu import main_menu
 
 
 def finders_main(num, delay_num):
