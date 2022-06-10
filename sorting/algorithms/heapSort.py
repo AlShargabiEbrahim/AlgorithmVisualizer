@@ -14,8 +14,9 @@ def heapify(array, n, i):
         heapify(array, n, largest)
 
 
-def heapSort(arr):
+def heapSort(arr, *args):
     n = len(arr)
+    yield from heapify(arr, n)
     # building maxHeap
     for i in range(n // 2, -1, -1):
         heapify(arr, n, i)

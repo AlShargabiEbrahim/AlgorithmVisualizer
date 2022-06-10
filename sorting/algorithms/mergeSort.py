@@ -1,4 +1,4 @@
-def mergeSort(A):
+def mergeSort(A, *args):
     n = len(A)
     B = [0 for i in range(n)]
     for i in range(0, n):

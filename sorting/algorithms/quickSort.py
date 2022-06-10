@@ -29,7 +29,7 @@ def qs(array, p, r):
     qs(array, p, q - 1)
     qs(array, q + 1, r)
 
-def quickSort(array):
+def quickSort(array, *args):
   size = len(array)
 
   qs(array, 0, size-1)

@@ -23,9 +23,8 @@ def updateWidgets(event):
         playButton.update()
 
 
-def drawBars(array, PURPLE_1, PURPLE_2, TEAL_1, TEAL_2, sorted={}):
-    """Draw the bars and control their colors"""
-
+def renderTheBars(array, PURPLE_1, PURPLE_2, TEAL_1, TEAL_2, sorted={}):
+    """render the bars and their sizes and colors"""
     if numBars != 0:
         bar_width = 900 / numBars
         ceil_width = ceil(bar_width)
@@ -42,10 +41,11 @@ def drawBars(array, PURPLE_1, PURPLE_2, TEAL_1, TEAL_2, sorted={}):
                 color = colors["BLUE"]
             pygame.draw.rect(screen, color, (num * bar_width, algorithmBox.rect.y//1.1 - array[num], ceil_width, array[num]))
 
+
 def render(array, PURPLE_1, PURPLE_2, TEAL_1, TEAL_2, **kwargs):
-    '''Draw all the interface'''
+    """render the window"""
     screen.fill(colors["WHITE"])
-    drawBars(array, PURPLE_1, PURPLE_2, TEAL_1, TEAL_2, **kwargs)
+    renderTheBars(array, PURPLE_1, PURPLE_2, TEAL_1, TEAL_2, **kwargs)
     renderBottomMenu()
     pygame.display.update()
 
