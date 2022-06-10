@@ -1,4 +1,4 @@
-from path.Board import *
+from pathfinder.Board import *
 from queue import PriorityQueue
 
 

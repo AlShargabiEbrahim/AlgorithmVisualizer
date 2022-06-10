@@ -1,5 +1,5 @@
 from queue import PriorityQueue
-from path.Board import *
+from pathfinder.Board import *
 import math
 
 

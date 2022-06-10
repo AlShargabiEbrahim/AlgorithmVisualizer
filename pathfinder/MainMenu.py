@@ -1,4 +1,4 @@
-from Algorithms.pathfinders import *
+from Algorithms import *
 from Buttons import *
 
 
