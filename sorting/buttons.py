@@ -24,7 +24,6 @@ baseFont = get_font(24)
 line_thickness = 5
 
 
-
 class options:
     def __init__(self,  rect):
         self.clicked = False
@@ -210,7 +209,6 @@ class Button:
     def click(self): return None
 
 
-
 class ButtonBox:
     def __init__(self, img_path, rect):
         self.isClicked = False
@@ -236,21 +234,22 @@ class ButtonBox:
                 self.isClicked = False
 
 
-# Global Variables
-numBars = 0
-delay = 0
-sorting = False
-paused = False
-timer_space_bar = 0
 
 # Input Boxes
 space = 200
 algorithmBox = options(pygame.Rect((w // 4), (h - 60), line_thickness * 30, line_thickness * 10))
 delayBox = Slider(pygame.Rect((w // 4) + space, (h - 60), line_thickness * 25, line_thickness * 10))
 sizeBox = SizeField(pygame.Rect( (w // 4) + space + space, (h - 60), line_thickness, line_thickness * 10))  # x,y , w, h
-exit_img = pygame.image.load('./images/stop_Button.png').convert_alpha()
-
 playButton = ButtonBox(pygame.image.load('./images/playButton.png'), (pygame.Rect( (w // 4) + space + space + space//2, (h - 60), line_thickness * 10, line_thickness * 10)))
 stopButton = ButtonBox(pygame.image.load('./images/stop_Button.png'), (pygame.Rect( (w // 4) + space + space + space//2, (h - 60), line_thickness * 10, line_thickness * 10)))
+
+
+numBars = 0
+delay = 0
+sorting = False
+finishedSorting = False
+timer_space_bar = 0
+highest_val = 400
+smallers_val = 10
 
 

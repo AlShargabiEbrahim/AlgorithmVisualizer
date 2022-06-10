@@ -1,5 +1,4 @@
 from algorithms import *
-#from algorithms.binaryinsertionSort import binaryinsertionSort
 from algorithms.insertionSort import insertionSort
 from algorithms.bubbleSort import bubbleSort
 from algorithms.countingSort import countingSort
