@@ -31,14 +31,11 @@ fullTree = MenuButton(640, 610, text_input="Full tree", font=get_font(75))
 
 undirectedPath = MenuButton(640, 200, text_input="undirected path ",font=get_font(55))
 directedPath = MenuButton(640, 200 + 75, text_input="directed path", font=get_font(55))
-
 directedCycle = MenuButton(640, 275+ 75, text_input="directed cycle ", font=get_font(55))
 undirectedCycle = MenuButton(640, 275 + 75  + 75 , text_input="undirected cycle", font=get_font(55))
-
 undirectedCompleteGraph = MenuButton(640, 350+ 75  + 75, text_input="undirected complete graph ", font=get_font(48))
-undirectedTreeGraph = MenuButton(640, 350 +75 + 75 + 75, text_input="undirected tree graph", font=get_font(55))
-
-directedTreeGraph = MenuButton(640, 650, text_input="directed tree graph", font=get_font(55))
+undirectedTreeGraph = MenuButton(640, 350 +75 + 75 + 75, text_input="undirected star  graph", font=get_font(55))
+directedTreeGraph = MenuButton(640, 650, text_input="directed star graph", font=get_font(55))
 
 
 
@@ -219,6 +216,8 @@ def trees_menu():
                     pygame.quit()
                     edges = full_tree(6)
                     draw_tree_matplotlib(edges)
+
+                sys.exit()
 
 
 main_menu()

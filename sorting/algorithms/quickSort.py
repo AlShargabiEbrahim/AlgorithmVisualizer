@@ -1,37 +1,27 @@
 import random
-def partition(array, p, r):
-  i = random.randint(p, r)
-  x = array[i]
-  array[i] = array[r]
-  i = p
 
-  while i < r and array[i] <= x:
-    i += 1
 
-  if i < r:
-    j = i + 1
-    while j < r:
-      if array[j] < x:
-        array[i], array[j] = array[j], array[i]
+def quickSort(array, l, r):
+  #qs(array, l, r)
+  if l<r :
+    i = l
+    k = random.randint(l, r)
+
+    array[r], array[k] = array[k], array[r]
+
+    for j in range(l, r):
+      yield array, j, r, i, -1
+
+      # if i < r:
+      # j = i + 1
+      # while j < r:
+      if array[j] < array[r]:
+        array[j], array[i] = array[i], array[j]
         i += 1
-      j += 1
-  else:
-    array[r] = x
 
-  array[r] = array[i]
-  array[i] = x
+    array[i], array[r] = array[r], array[i]
 
-  return i
+    yield from quickSort(array, i + 1, r)
+    yield from quickSort(array, l, i - 1)
 
-def qs(array, p, r):
-  if p < r:
-    q = partition(array, p, r)
-    qs(array, p, q - 1)
-    qs(array, q + 1, r)
-
-def quickSort(array, *args):
-  size = len(array)
-
-  qs(array, 0, size-1)
-
-  return array
+  #return array

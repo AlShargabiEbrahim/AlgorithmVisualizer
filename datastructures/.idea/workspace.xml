@@ -2,7 +2,13 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="a758d796-7dad-4b4f-a657-83394d005727" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/../algovis.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/MainMenu.py" beforeDir="false" afterPath="$PROJECT_DIR$/MainMenu.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/main.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../pathfinder/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/../pathfinder/main.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../sorting/algorithms/heapSort.py" beforeDir="false" afterPath="$PROJECT_DIR$/../sorting/algorithms/heapSort.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../sorting/algorithms/mergeSort.py" beforeDir="false" afterPath="$PROJECT_DIR$/../sorting/algorithms/mergeSort.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../sorting/algorithms/quickSort.py" beforeDir="false" afterPath="$PROJECT_DIR$/../sorting/algorithms/quickSort.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -36,6 +42,7 @@
   <component name="PropertiesComponent">
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="settings.editor.selected.configurable" value="com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable" />
   </component>
   <component name="RecentsManager">
@@ -82,12 +89,23 @@
     </task>
     <servers />
   </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
       <breakpoints>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/MainMenu.py</url>
-          <line>142</line>
+          <line>139</line>
           <option name="timeStamp" value="1" />
         </line-breakpoint>
       </breakpoints>

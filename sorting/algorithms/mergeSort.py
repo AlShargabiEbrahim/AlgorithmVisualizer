@@ -1,40 +1,37 @@
-def mergeSort(A, *args):
+def mergeSort(A, l , r):
     n = len(A)
     B = [0 for i in range(n)]
-    for i in range(0, n):
-        B[i] = A[i]
-
-    ms(B, A, 0, n)
-
-    return A
-
-
-def ms(B, A, l, r):
-    if r - l > 1:
-        m = l + (r - l) // 2
-        ms(A, B, l, m)
-        ms(A, B, m, r)
-        merge(B, A, l, m, r)
+    if r > l:
+        m = int((l+r)/2)
+        yield from mergeSort(A, l, m)
+        yield from mergeSort(A, m + 1, r)
+        yield from merge(B,A, l, m, r)
 
 
 def merge(B, A, l, m, r):
-    i = k = l
-    j = m
-
-    while i < m and j < r:
-        if B[i] <= B[j]:
-            A[k] = B[i]
-            i = i + 1
+    left_arr = A[l:m + 1]
+    right_arr = A[m + 1:r + 1]
+    i = 0
+    j = 0
+    k = l
+    
+    while i < len(left_arr) and j < len(right_arr):
+        yield A, l + i, m + j, l, r
+        
+        if left_arr[i] < right_arr[j]:
+            A[k] = left_arr[i]
+            i += 1
         else:
-            A[k] = B[j]
-            j = j + 1
-        k = k + 1
+            A[k] = right_arr[j]
+            j += 1
+            
+        k += 1
 
-    if i < m:
-        for l in range(k, r):
-            A[l] = B[i]
-            i = i + 1
-    else:
-        for l in range(k, r):
-            A[l] = B[j]
-            j = j + 1
+    while i < len(left_arr):
+        A[k] = left_arr[i]
+        i += 1
+        k += 1
+    while j < len(right_arr):
+        A[k] = right_arr[j]
+        j += 1
+        k += 1
