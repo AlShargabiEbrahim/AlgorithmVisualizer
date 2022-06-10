@@ -1,5 +1,7 @@
 import pygame
+from math import ceil
 from colors import colors
+from algs import algorithmsDict
 
 pygame.init()
 
@@ -206,3 +208,49 @@ class Button:
         return None
     def on_animate(self, elapsed): pass
     def click(self): return None
+
+
+
+class ButtonBox:
+    def __init__(self, img_path, rect):
+        self.isClicked = False
+        self.rect = pygame.Rect(rect)
+        self.img = img_path
+
+    def draw(self):
+        screen.blit(self.img, (self.rect.x, self.rect.y))
+
+    def update(self):
+        if sizeBox.size != '':
+            self.mousePos = pygame.mouse.get_pos()
+            self.clicked = pygame.mouse.get_pressed() != (0, 0, 0)
+
+            if self.rect.collidepoint(self.mousePos):
+                self.isClicked = True
+            else :
+                self.isClicked = False
+
+            if self.isClicked and self.clicked:
+                self.isClicked = True
+            else:
+                self.isClicked = False
+
+
+# Global Variables
+numBars = 0
+delay = 0
+sorting = False
+paused = False
+timer_space_bar = 0
+
+# Input Boxes
+space = 200
+algorithmBox = options(pygame.Rect((w // 4), (h - 60), line_thickness * 30, line_thickness * 10))
+delayBox = Slider(pygame.Rect((w // 4) + space, (h - 60), line_thickness * 25, line_thickness * 10))
+sizeBox = SizeField(pygame.Rect( (w // 4) + space + space, (h - 60), line_thickness, line_thickness * 10))  # x,y , w, h
+exit_img = pygame.image.load('./images/stop_Button.png').convert_alpha()
+
+playButton = ButtonBox(pygame.image.load('./images/playButton.png'), (pygame.Rect( (w // 4) + space + space + space//2, (h - 60), line_thickness * 10, line_thickness * 10)))
+stopButton = ButtonBox(pygame.image.load('./images/stop_Button.png'), (pygame.Rect( (w // 4) + space + space + space//2, (h - 60), line_thickness * 10, line_thickness * 10)))
+
+
