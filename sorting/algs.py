@@ -6,7 +6,7 @@ from algorithms.heapSort import heapSort
 from algorithms.mergeSort import mergeSort
 from algorithms.quickSort import quickSort
 from algorithms.selectionSort import selectionSort
-
+from algorithms.radixSort import radixSort
 
 
 algorithmsDict = {'insertion'       : insertionSort,
@@ -17,6 +17,7 @@ algorithmsDict = {'insertion'       : insertionSort,
                   'merge': mergeSort,
                   'quick': quickSort,
                   'selection': selectionSort,
+                  'radix' : radixSort,
                   }
 
 
