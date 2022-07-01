@@ -9,7 +9,7 @@ import random
 
 from .BFS import bfs_algo
 from .Dijkstra import dijkstra_algo
-from pathfinder.MainMenu import main_menu
+#from MainMenu import main_menu
 
 
 def finders_main(num, delay_num):
@@ -29,6 +29,7 @@ def finders_main(num, delay_num):
     algo_finished = False
     start_node = None
     end_node = None
+    parent_nodes = None
 
     while still_running:
         draw(nodes_grid, screen)
@@ -81,12 +82,20 @@ def finders_main(num, delay_num):
                     for node in row:
                         node.update_neighbors_nodes(nodes_grid)
                 if num == 1:
-                    bfs_algo(nodes_grid, start_node, end_node, screen,delay_num)
+                    parent_nodes = bfs_algo(nodes_grid, start_node, end_node, screen,delay_num)
                 elif num == 2:
-                    a_star_algo(nodes_grid, start_node, end_node, screen,delay_num)
+                    parent_nodes = a_star_algo(nodes_grid, start_node, end_node, screen,delay_num)
                 elif num == 3:
-                    dijkstra_algo(nodes_grid, start_node, end_node, screen,delay_num)
+                    parent_nodes = dijkstra_algo(nodes_grid, start_node, end_node, screen)
                 algo_finished = True
+
+            if event.type == pygame.MOUSEMOTION:
+                y, x = pygame.mouse.get_pos()
+                row, col = y // node_width, x // node_width
+                if algo_finished:
+                    undraw_shorties_path(parent_nodes, end_node)
+                    end_node = nodes_grid[row][col]
+                    draw_shorties_path(parent_nodes, end_node, nodes_grid, screen)
 
             if pygame.KEYDOWN == event.type:
                 if event.key == pygame.K_SPACE and start_node and end_node and not algo_finished:
@@ -96,11 +105,11 @@ def finders_main(num, delay_num):
                             node.update_neighbors(nodes_grid)
 
                     if num == 1:
-                        a_star_algo(nodes_grid, start_node, end_node, screen, delay_num)
+                        parent_nodes = bfs_algo(nodes_grid, start_node, end_node, screen, delay_num)
                     elif num == 2:
-                        a_star_algo(nodes_grid, start_node, end_node, screen, delay_num)
+                        parent_nodes = a_star_algo(nodes_grid, start_node, end_node, screen, delay_num)
                     elif num == 3:
-                        a_star_algo(nodes_grid, start_node, end_node, screen, delay_num)
+                        parent_nodes = dijkstra_algo(nodes_grid, start_node, end_node, screen)
                     algo_finished = True
 
                 if event.key == pygame.K_r:

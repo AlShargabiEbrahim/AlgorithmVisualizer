@@ -3,12 +3,12 @@ import pygame
 
 
 def get_font(size):  # Returns Press-Start-2P in the desired size
-    return pygame.font.Font("assets/Lato-Black.ttf", size)
+    return pygame.font.Font("assets/font.ttf", size)
 
 
 pygame.init()
 screen = pygame.display.set_mode((1280, 720))
-BG = pygame.image.load("assets/menuback.jpg")
+BG = pygame.image.load("assets/Background.png")
 
 instructionsButton = MenuButton(640, 250, text_input="INSTRUCTIONS", font=get_font(75))
 OptionsButton = MenuButton(640, 400, text_input="OPTIONS", font=get_font(75))

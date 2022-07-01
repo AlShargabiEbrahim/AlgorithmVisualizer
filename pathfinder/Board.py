@@ -1,6 +1,6 @@
 import pygame
-from .Colors import colors
-from .Node import Node
+from Colors import colors
+from Node import Node
 import sys
 
 
@@ -47,6 +47,11 @@ def draw(grid, screen):
 
     draw_grid_lines(screen)
     pygame.display.update()
+
+def undraw_shorties_path(parent_nodes, current):
+    while current in parent_nodes:
+        current = parent_nodes[current]
+        current.set_color("BLUE")
 
 
 def draw_shorties_path(parent_nodes, current, grid, screen):

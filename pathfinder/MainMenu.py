@@ -1,4 +1,4 @@
-from Algorithms import *
+from Algorithms.pathfinders import *
 from Buttons import *
 
 
@@ -52,7 +52,7 @@ def instructions():
 
     while running_menu:
 
-        BG = pygame.image.load("assets/menuback.jpg")
+        BG = pygame.image.load("assets/Background.png")
         screen.blit(BG, (0, 0))
         text = get_font(55).render("INSTRUCTIONS", True, "#b68f40")
         rect = text.get_rect(center=(640, 100))
@@ -87,7 +87,7 @@ def algosOptions():
     running_menu = True
     while running_menu:
 
-        BG = pygame.image.load("assets/menuback.jpg")
+        BG = pygame.image.load("assets/Background.png")
         screen.blit(BG, (0, 0))
         text = get_font(55).render("PATHFINDING ALGORITHMS", True, "#b68f40")
         rect = text.get_rect(center=(640, 100))
@@ -105,6 +105,7 @@ def algosOptions():
             if event.type == pygame.QUIT:
                 pygame.quit()
                 sys.exit()
+               
             if event.type == pygame.MOUSEBUTTONDOWN:
                 global algo_num
 
@@ -124,7 +125,7 @@ def algosOptions():
                     delayOptions()
 
                 if BackButton.checkMouseClick(mousePositionX, mousePositionY):
-                    BG = pygame.image.load("assets/menuback.jpg")
+                    BG = pygame.image.load("assets/Background.png")
                     screen.blit(BG, (0, 0))
                     text = get_font(60).render("PATHFINDER VISUALIZER", True, "#b68f40")
                     rect = text.get_rect(center=(640, 100))
@@ -135,7 +136,7 @@ def algosOptions():
 def delayOptions():
     running_menu = True
     while running_menu:
-        BG = pygame.image.load("assets/menuback.jpg")
+        BG = pygame.image.load("assets/Background.png")
         screen.blit(BG, (0, 0))
         text = get_font(55).render("SPEED OF THE ALGORITHM", True, "#b68f40")
         rect = text.get_rect(center=(640, 100))

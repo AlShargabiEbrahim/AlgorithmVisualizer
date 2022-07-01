@@ -1,4 +1,4 @@
-from pathfinder.Board import *
+from Board import *
 from queue import PriorityQueue
 
 
@@ -24,7 +24,7 @@ def bfs_algo(nodes_grid, start_node, end_node, screen, delay_):
             end_node.set_color("PURPLE")
             draw_shorties_path(parent_nodes, end_node, nodes_grid, screen)
             start_node.set_color("TEAL")
-            return True
+            return parent_nodes
 
         for neighbor in current_node.neighbors_nodes:
             g_score = nodes_score[current_node] + 1
@@ -54,4 +54,4 @@ def bfs_algo(nodes_grid, start_node, end_node, screen, delay_):
         if current_node != start_node:
             clock.tick(delay_)
             current_node.set_color("BLUE")
-    return False
+    return None

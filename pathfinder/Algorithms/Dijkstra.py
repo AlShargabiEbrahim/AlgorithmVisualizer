@@ -1,7 +1,7 @@
 import sys
 from queue import PriorityQueue
 import pygame
-from path.Board import draw_shorties_path, draw, clock, delay
+from Board import draw_shorties_path, draw, clock, delay
 
 
 def dijkstra_algo(nodes_grid, start_node, end_node, screen):
@@ -31,7 +31,7 @@ def dijkstra_algo(nodes_grid, start_node, end_node, screen):
             end_node.set_color("PURPLE")
             draw_shorties_path(parent_nodes, end_node, nodes_grid, screen)
             start_node.set_color("TEAL")
-            return True
+            return parent_nodes
 
         for neighbor in current_node.neighbors_nodes:
             g_score = nodes_score[current_node] + 1
@@ -56,7 +56,7 @@ def dijkstra_algo(nodes_grid, start_node, end_node, screen):
             clock.tick(delay)
             #time.sleep(0.015)  # avg
             current_node.set_color("BLUE")
-    return False
+    return None
 
 """
 def algo_check(nodes_grid, start_node, end_node, screen):
