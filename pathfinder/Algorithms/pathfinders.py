@@ -90,10 +90,10 @@ def finders_main(num, delay_num):
                 algo_finished = True
 
             if event.type == pygame.MOUSEMOTION:
-                y, x = pygame.mouse.get_pos()
-                row, col = y // node_width, x // node_width
                 if algo_finished:
                     undraw_shorties_path(parent_nodes, end_node)
+                    y, x = pygame.mouse.get_pos()
+                    row, col = y // node_width, x // node_width
                     end_node = nodes_grid[row][col]
                     draw_shorties_path(parent_nodes, end_node, nodes_grid, screen)
 
