@@ -18,9 +18,7 @@ def counting_Sort(array, exp1):
         count[int(index % 10)] -= 1
         i -= 1
     i = 0
-    if(array != output):
-        pass
-    else:
+    if not(array != output):
         return 0
     for i in range(0, len(array)):
         array[i] = output[i]
